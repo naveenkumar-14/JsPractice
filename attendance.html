@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance</title>
+<style>
+  #container {
+    width: 300px; /* Adjust the width as needed */
+  }
+  .circle {
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    cursor: pointer;
+    float: left; /* Float the circles to achieve multiple columns */
+  }
+  .blue {
+    background-color: blue;
+  }
+</style>
+</head>
+<body>
+
+<div id="date"></div> <!-- Container for date -->
+<div id="container"></div> <!-- Container for circles -->
+
+<script>
+  // Function to create circles
+  function createCircle(number) {
+    const circle = document.createElement('div');
+    circle.className = 'circle';
+    circle.textContent = number;
+    circle.onclick = function() {
+      circle.classList.toggle('blue');
+    };
+    return circle;
+  }
+
+  // Create 70 circles
+  const container = document.getElementById('container');
+  for (let i = 1; i <= 70; i++) {
+    const circle = createCircle(i);
+    container.appendChild(circle);
+    // Add line break every 5 circles
+    if (i % 5 === 0) {
+      container.appendChild(document.createElement('br'));
+    }
+  }
+
+  // Insert today's date above the circle grid
+  const currentDate = new Date().toDateString();
+  const dateContainer = document.getElementById('date');
+  dateContainer.textContent = 'Today\'s Date: ' + currentDate;
+</script>
+
+</body>
+</html>

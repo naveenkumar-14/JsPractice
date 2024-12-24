@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circle Grid</title>
+<style>
+  #container {
+    width: 300px; /* Adjust the width as needed */
+  }
+  .circle {
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    cursor: pointer;
+    float: left; /* Float the circles to achieve multiple columns */
+  }
+  .blue {
+    background-color: blue;
+  }
+  #legend {
+    margin-bottom: 20px;
+  }
+  #legend div {
+    display: inline-block;
+    margin-right: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div id="legend">
+  <div style="background-color: red; width: 20px; height: 20px; border-radius: 50%; display: inline-block;"></div> Absent
+  <div style="background-color: blue; width: 20px; height: 20px; border-radius: 50%; display: inline-block; margin-left: 10px;"></div> Present
+</div>
+
+<div id="date"></div> <!-- Container for date -->
+<div id="container"></div> <!-- Container for circles -->
+
+<button id="submitBtn">Submit</button> <!-- Submit button -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+<script>
+  let redRolls = [];
+  let blueRolls = [];
+
+  // Function to create circles
+  function createCircle(number) {
+    const circle = document.createElement('div');
+    circle.className = 'circle';
+    circle.textContent = number;
+    circle.onclick = function() {
+      circle.classList.toggle('blue');
+    };
+    return circle;
+  }
+
+  // Create 70 circles
+  const container = document.getElementById('container');
+  for (let i = 1; i <= 70; i++) {
+    const circle = createCircle(i);
+    container.appendChild(circle);
+    // Add line break every 5 circles
+    if (i % 5 === 0) {
+      container.appendChild(document.createElement('br'));
+    }
+  }
+
+  // Insert today's date above the circle grid
+  const currentDate = new Date().toDateString();
+  const dateContainer = document.getElementById('date');
+  dateContainer.textContent = 'Today\'s Date: ' + currentDate;
+
+  // Submit button click event
+  document.getElementById('submitBtn').addEventListener('click', function() {
+    const circles = document.querySelectorAll('.circle');
+    circles.forEach(circle => {
+      const roll = circle.textContent;
+      if (circle.classList.contains('blue')) {
+        blueRolls.push(roll);
+      } else {
+        redRolls.push(roll);
+      }
+    });
+
+    // Generate Excel file
+    const workbook = XLSX.utils.book_new();
+    const absentSheet = XLSX.utils.aoa_to_sheet([['Absent Rolls'], ...redRolls.map(roll => [roll])]);
+    const presentSheet = XLSX.utils.aoa_to_sheet([['Present Rolls'], ...blueRolls.map(roll => [roll])]);
+
+    XLSX.utils.book_append_sheet(workbook, absentSheet, 'Absent');
+    XLSX.utils.book_append_sheet(workbook, presentSheet, 'Present');
+
+    // Save Excel file
+    XLSX.writeFile(workbook, 'attendance.xlsx');
+  });
+</script>
+
+</body>
+</html>

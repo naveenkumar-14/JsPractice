@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Rental Hub</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #333;
+            --accent-color: #FFD700;
+            --background-color: #f4f4f9;
+            --font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            font-family: var(--font-family);
+            color: var(--secondary-color);
+        }
+
+        header {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .tagline {
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+
+        .hero {
+            background: url('https://source.unsplash.com/1600x900/?books') no-repeat center center/cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: var(--secondary-color);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .feature {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            text-align: center;
+            flex: 1 1 300px;
+        }
+
+        .feature h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature p {
+            font-size: 1rem;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .features {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Book Rental Hub</h1>
+        <p class="tagline">"Your Gateway to Affordable Reading!"</p>
+    </header>
+
+    <div class="hero">
+        <div>
+            <h2>Discover, Rent, Enjoy</h2>
+            <p>Explore a wide variety of books at unbeatable prices.</p>
+            <a href="#features" class="btn">Explore Now</a>
+        </div>
+    </div>
+
+    <section id="features" class="features">
+        <div class="feature">
+            <h3>Wide Selection</h3>
+            <p>Choose from a curated collection of genres and authors.</p>
+        </div>
+        <div class="feature">
+            <h3>Flexible Plans</h3>
+            <p>Daily, weekly, and monthly rental plans to suit your needs.</p>
+        </div>
+        <div class="feature">
+            <h3>Hassle-Free Returns</h3>
+            <p>Easy return options with doorstep pickup available.</p>
+        </div>
+        <div class="feature">
+            <h3>Eco-Friendly</h3>
+            <p>Support sustainable reading with reusable books.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Book Rental Hub | All Rights Reserved</p>
+    </footer>
+</body>
+</html>

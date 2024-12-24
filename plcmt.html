@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #555;
+        }
+        input[type="text"], button {
+            padding: 10px;
+            margin: 5px 0;
+            width: calc(100% - 24px);
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            background: #e9e9e9;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        const backendUrl = 'http://127.0.0.1:8081'; // Adjust if your backend URL is different
+
+        // Fetch Admins
+        async function fetchAdmins() {
+            try {
+                const response = await fetch(`${backendUrl}/admins`);
+                if (!response.ok) throw new Error('Network response was not ok.');
+                const admins = await response.json();
+                const adminList = document.getElementById('adminList');
+                adminList.innerHTML = '';
+                admins.forEach(admin => {
+                    const li = document.createElement('li');
+                    li.textContent = `ID: ${admin.id}, Name: ${admin.name}, Password: ${admin.password}`;
+                    adminList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Error fetching admins:', error);
+            }
+        }
+
+        // Fetch Admin By ID
+        async function fetchAdminById() {
+            const id = document.getElementById('fetchId').value;
+            try {
+                const response = await fetch(`${backendUrl}/admins/${id}`);
+                if (!response.ok) throw new Error('Network response was not ok.');
+                const admin = await response.json();
+                document.getElementById('fetchResult').textContent = `ID: ${admin.id}, Name: ${admin.name}, Password: ${admin.password}`;
+            } catch (error) {
+                console.error('Error fetching admin by ID:', error);
+            }
+        }
+
+        // Save Admin
+        async function saveAdmin() {
+            const name = document.getElementById('saveName').value;
+            const password = document.getElementById('savePassword').value;
+            try {
+                const response = await fetch(`${backendUrl}/admins`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, password })
+                });
+                if (!response.ok) throw new Error('Network response was not ok.');
+                const admin = await response.json();
+                alert(`Admin saved with ID: ${admin.id}`);
+                fetchAdmins();
+            } catch (error) {
+                console.error('Error saving admin:', error);
+            }
+        }
+
+        // Update Admin
+        async function updateAdmin() {
+            const id = document.getElementById('updateId').value;
+            const name = document.getElementById('updateName').value;
+            const password = document.getElementById('updatePassword').value;
+            try {
+                const response = await fetch(`${backendUrl}/admins/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, password })
+                });
+                if (!response.ok) throw new Error('Network response was not ok.');
+                const admin = await response.json();
+                alert(`Admin updated: ID: ${admin.id}, Name: ${admin.name}`);
+                fetchAdmins();
+            } catch (error) {
+                console.error('Error updating admin:', error);
+            }
+        }
+
+        // Delete Admin
+        async function deleteAdmin() {
+            const id = document.getElementById('deleteId').value;
+            try {
+                const response = await fetch(`${backendUrl}/admins/${id}`, { method: 'DELETE' });
+                if (!response.ok) throw new Error('Network response was not ok.');
+                alert(`Admin deleted with ID: ${id}`);
+                fetchAdmins();
+            } catch (error) {
+                console.error('Error deleting admin:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchAdmins);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Management</h1>
+
+        <h2>Admins List</h2>
+        <ul id="adminList"></ul>
+
+        <h2>Fetch Admin By ID</h2>
+        <input type="text" id="fetchId" placeholder="Admin ID">
+        <button onclick="fetchAdminById()">Fetch</button>
+        <p id="fetchResult"></p>
+
+        <h2>Save New Admin</h2>
+        <input type="text" id="saveName" placeholder="Name">
+        <input type="text" id="savePassword" placeholder="Password">
+        <button onclick="saveAdmin()">Save</button>
+
+        <h2>Update Admin</h2>
+        <input type="text" id="updateId" placeholder="Admin ID">
+        <input type="text" id="updateName" placeholder="Name">
+        <input type="text" id="updatePassword" placeholder="Password">
+        <button onclick="updateAdmin()">Update</button>
+
+        <h2>Delete Admin</h2>
+        <input type="text" id="deleteId" placeholder="Admin ID">
+        <button onclick="deleteAdmin()">Delete</button>
+    </div>
+</body>
+</html>
