@@ -15,7 +15,7 @@ while(true){
         console.log("Your guess is smaller than the number,Try again");
         guess=prompt("Your guess is smaller than the number,Try again");
     }else {
-        console.log("Your guess is larger than the number,Try again");
+        console.log("Your guess is larger than the number,Guess again");
         guess=prompt("Your guess is larger than the number,Guess again");
         
     }
