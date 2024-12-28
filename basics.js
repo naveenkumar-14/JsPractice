@@ -1,11 +1,3 @@
-let greet=function(){
-    console.log("Hello");
-}
-function ngreets(func,n){
-    for(let i=1;i<=n;i++){
-        func();
-    }
-}
-ngreets(function(){
-    console.log("Hi");
-},5);
+const user = { id: 1, name: 'John', age: 25 };
+const { id, ...details } = user;
+console.log(details); // Output: { name: 'John', age: 25 }
