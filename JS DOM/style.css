@@ -1,4 +1,15 @@
-.blue{
+body{
+  text-align: center; 
+  
+}
+div{
+  margin: auto;
+  height: 100px;
+  width: 500px;
+  border: 1px solid black;
+}
+
+/* .blue{
   color:blue;
 }
 .red{
@@ -21,7 +32,7 @@
 }
 .txtPurple{
   color:purple;
-}
+} */
 /* body {
   font-family: Arial;
 }
